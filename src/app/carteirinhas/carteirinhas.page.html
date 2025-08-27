@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carteirinhas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div
+    class="div-registro-nao-localizado"
+    *ngIf="!loadingBool && carteirinhas.length === 0"
+  >
+    <div class="col-12 text-center">
+      <label>Não foi localizada carteirinha!</label>
+      <br />
+      <img
+        src="../../assets/img/registro-nao-localizado.png"
+        style="max-width: 90px"
+      />
+    </div>
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let carteirinha of carteirinhas; let i = index">
+      <ion-row>
+        <ion-col size="12">
+          <div class="card-container">
+            <img
+              src="../../assets/img/preload/novo-bg.png"
+              alt=""
+              class="card-bg-img"
+            />
+            <div class="card-data">
+              <div class="card-info">
+                <div class="card-label">Nome:</div>
+                <div class="card-value">{{ carteirinha.nome }}</div>
+              </div>
+              <div class="card-info" style="margin-top: 10px;">
+                <div class="card-label">Matrícula:</div>
+                <div class="card-value">{{ carteirinha.numero }}</div>
+              </div>
+              <div class="card-fields-row">
+                <div class="card-field card-field-left">
+                  <span class="card-field-label">Parentesco</span><br />
+                  <span class="card-field-value"
+                    >{{ carteirinha.grauParentesco }}</span
+                  >
+                </div>
+                <div class="card-field card-field-center">
+                  <span class="card-field-label">Vencimento</span><br />
+                  <span class="card-field-value"
+                    >{{ carteirinha.validade }}</span
+                  >
+                </div>
+                <div class="card-field card-field-right">
+                  <span class="card-field-label">Lotação</span><br />
+                  <span class="card-field-value"
+                    >{{ carteirinha.lotacao }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" style="text-align: center">
+          <ion-row>
+            <ion-col size="6" style="text-align: right; padding-right: 15px">
+              <div
+                class="my-fg-black cursor-hand"
+                (click)="compartilhar(carteirinha)"
+              >
+                <ion-icon
+                  name="share-social"
+                  style="font-size: 30px; color: #6e6e6e"
+                ></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col size="6" style="text-align: left; padding-left: 15px">
+              <div
+                class="my-fg-black cursor-hand"
+                (click)="openView(carteirinha)"
+              >
+                <ion-icon
+                  name="eye"
+                  style="font-size: 30px; color: #6e6e6e"
+                ></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

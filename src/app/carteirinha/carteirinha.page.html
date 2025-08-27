@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="closeModal()">
+      <ion-icon name="arrow-back-outline" style="font-size: 26px; margin-left: 10px;"></ion-icon>
+    </ion-buttons>
+    <ion-title>Carteirinha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img [defaultImage]="defaultImage" [lazyLoad]="srcCarteirinha" style="width: 100%" alt="...">
+
+  <div class="my-fg-black cursor-hand" (click)="compartilhar()" style="position: absolute; bottom: 5px; right: 5px;">
+    <ion-icon name="share-social"
+      style="font-size: 40px; color: #ffffff; background-color: #6d6d6d; border-radius: 25px; padding: 3px 7px 3px 0px">
+    </ion-icon>
+  </div>
+</ion-content>

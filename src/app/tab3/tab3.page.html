@@ -1,0 +1,16 @@
+<ion-content [fullscreen]="true" class="meu-menu">
+  <div style="text-align: center; padding: 20px;">
+    <img src="../../assets/img/logo-ambep.png" style="width: 50%;">
+  </div>
+  <ion-list>
+    <ion-item *ngFor="let page of getMenus()" (click)="openPage(page)"
+      style="background-color: transparent; color: rgb(129, 135, 151);font-weight: 300; border: none">
+      <ion-label style="font-weight: bolder !important; font-size: 18px;">{{page.titulo}}</ion-label>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+    <ion-item (click)="openPage({route:'/login'})"
+      style="background-color: transparent; color: rgb(129, 135, 151);font-weight: 300; border: none">
+      <ion-label style="font-weight: bolder !important; font-size: 18px;">Sair</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

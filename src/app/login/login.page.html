@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="splash-bg"></div>
+  <div class="splash-info">
+    <div class="splash-logo"></div>
+    <div class="splash-intro">
+      Informe as credenciais
+    </div>
+  </div>
+  <form>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" [(ngModel)]="account.senha" name="senha" maxlength="20"></ion-input>
+      </ion-item>
+
+      <div style="padding: 5%">
+        <ion-button expand="block" size="large" color="primary" block (click)="autenticar()">ACESSAR</ion-button>
+        <br />
+        <ion-button expand="block" size="large" color="light" block (click)="cadastrarUsuario()">CADASTRAR</ion-button>
+        <br />
+        <a (click)="esqueciSenha()">Esqueci a senha</a>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

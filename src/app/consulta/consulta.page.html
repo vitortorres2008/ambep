@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{page.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+  <div class="row justify-content-md-center">
+    <div class="col-sm-12 col-md-10 col-xl-6 col-lg-6">
+      <img src="../../assets/icon/question-circle-fill.svg" alt="Ajuda" width="30" height="30" class="icone-ajuda" data-toggle="modal" data-target="#modalAjuda">
+
+      <h1 class="display-4 text-center"><img src="../assets/img/logo-consulta-main.png?v=1"></h1>
+      <div class="row justify-content-md-center div-linha cursor-hand" data-toggle="modal" #btnShowLocalizacao
+        data-target="#exampleModal">
+        <div class="col-12 text-center">
+          <img src="../assets/icon/geo-alt-fill.svg" alt="localizacao" width="25" height="25" class="icone">
+          <span *ngIf="filtro.bairro !== null && filtro.bairro !== ''">{{filtro.bairro}}</span>
+          <span *ngIf="filtro.cidade !== null && filtro.cidade !== ''"><span
+              *ngIf="filtro.bairro !== null && filtro.bairro !== ''">,</span>&nbsp;{{filtro.cidade}}</span>
+          <span *ngIf="filtro.uf !== null && filtro.uf !== ''"><span
+              *ngIf="filtro.cidade !== null && filtro.cidade !== ''">,</span>&nbsp;{{filtro.uf}}</span>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 mt-2 div-linha">
+          <label class="hashtag-especialidade-filtro" *ngFor="let especialidade of filtro.especialidades" (click)="addRemEspecialidade(especialidade)">
+              #{{especialidade}}
+              <label class="hashtag-especialidade-filtro-close">X</label>
+          </label>
+      </div>
+      <div class="row justify-content-md-center div-linha">
+        <div class="col-1" style="position: relative;">
+          <img src="../assets/icon/funnel-fill.svg" class="cursor-hand icone" alt="Bootstrap" width="25" height="25" 
+          style="position: absolute; top: 10px;" data-toggle="modal" data-target="#modalEspecialidade" (click)="carregarEspecialidades()">
+      </div>
+      <div class="col-11" style="position: relative;">
+          <input type="text" class="form-control" [(ngModel)]="filtro.descricao"
+            placeholder="{{parceiroTipo.consultaLabelBusca}}" (keyup)="onKey($event)" autocomplete="true">
+          <img src="../assets/icon/search.svg" alt="Buscar" width="20" (click)="consultar()" class="cursor-hand icone"
+            height="20" style="position: absolute; right: 25px; top: 12px;">
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center div-linha">
+        <div class="col-12 col-sm-12 col-md-12 col-xl-12 col-lg-12 text-left">
+          <br />
+          <p class="mb-2 text-muted">
+            &nbsp;&nbsp;&nbsp;<b>"Todas estas palavras {{textExemploConsulta}}"</b>: os resultados usarão todas as palavras
+            inseridas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

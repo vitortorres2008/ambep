@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>    
+    <ion-title>Esqueci a senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center; padding: 20px;">
+    <img src="../../assets/img/logo-ambep.png" style="width: 50%;">
+  </div>
+  <form>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Informe o e-mail cadastrado</ion-label>
+        <ion-input type="email" [(ngModel)]="formulario.valor" name="emailEsqueciSenha"></ion-input>
+      </ion-item>
+      <div style="padding: 5%">
+        <ion-button expand="block" size="large" color="primary" block (click)="recuperar()">ENVIAR</ion-button>
+      </div>
+    </ion-list>
+  </form>
+
+</ion-content>

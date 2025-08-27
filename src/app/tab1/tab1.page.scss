@@ -1,0 +1,21 @@
+
+.div-button
+{
+    text-align: center;
+}
+
+.div-button button {
+    min-height: 100px;
+    width: 80%;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 44%, rgba(228,228,228,1) 100%);
+    border: solid 1px rgba(228,228,228,1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .img-icone-button {
+    
+    width: 40%;
+  }

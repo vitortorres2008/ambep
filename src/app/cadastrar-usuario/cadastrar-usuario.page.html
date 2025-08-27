@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastrar Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center; padding: 20px;">
+    <img src="../../assets/img/logo-ambep.png" style="width: 50%;">
+  </div>
+  <form>
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">E-mail <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="email" [(ngModel)]="formulario.email"
+          name="emailNewUser" maxlength="200"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nome Completo <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="text" [(ngModel)]="formulario.nomeCompleto"
+          name="nomeCompletoNewUser" maxlength="150"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cpf <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="text" [(ngModel)]="formulario.cpf" [brmasker]="{person: true}"
+          name="cpfNewUser"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Celular <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="text" [brmasker]="{phone: true}" [(ngModel)]="formulario.telefone"
+          name="telefoneNewUser"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nascimento (dia/mes/ano) <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="text" [brmasker]="{mask: '00/00/0000', len:10, type:'num'}" [(ngModel)]="formulario.dtNascimentoTemp"
+          name="dtNascimento" maxlength="10"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Senha <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="password" [(ngModel)]="formulario.senha"
+          name="senhaNewUser" maxlength="20"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirmar Senha <b>*</b></ion-label>
+        <ion-input clearInput autocapitalize="off" autocomplete="off" type="password"
+          [(ngModel)]="formulario.senhaConfirm" name="senhaConfirmNewUser" maxlength="20"></ion-input>
+      </ion-item>
+
+      <div style="padding: 5%">
+        <a href="https://www.ambep.org.br/politica-privacidade/" target="_blank">Termo de privacidade</a>
+        <br />&nbsp;
+        <br />
+        <input type="checkbox" [(ngModel)]="formulario.aceitoTermo" name="aceitoTermo" /> Aceito os termos de privacidade
+        <br />&nbsp;
+        <br />
+        <ion-button expand="block" size="large" color="primary" block (click)="salvar()">CADASTRAR</ion-button>
+      </div>
+    </ion-list>
+  </form>
+
+</ion-content>

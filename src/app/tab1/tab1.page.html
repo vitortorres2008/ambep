@@ -1,0 +1,14 @@
+<ion-content class="content-padrao">
+  <img src="../../assets/img/main-topo.png" style="width: 100%;" />
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="div-button" *ngFor="let bloco of getBlocos()">
+        <button expand="full" class="button-inicial" (click)="openPage(bloco)">
+          <img class="icon img-icone-button" [defaultImage]="getDefaltIcone(bloco.icone)" [lazyLoad]="getUrlIcone(bloco.icone)" />
+          <br>
+          <label>{{bloco.titulo}}</label>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
