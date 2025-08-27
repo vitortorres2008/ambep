@@ -14,8 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'tab2',
-        component: Tab2Page,
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../contato/contato.module').then(m => m.ContatoPageModule)
       },
       {
         path: 'tab3',
@@ -23,7 +22,8 @@ const routes: Routes = [
       },
       {
         path: 'contato/:origem',
-        loadChildren: () => import('../contato/contato.module').then(m => m.ContatoPageModule)
+        component: Tab2Page,
+        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
       },
       {
         path: '',
