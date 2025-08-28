@@ -37,13 +37,13 @@
 }
 
 .card-label {
-  font-size: 11px;
+  font-size: 10px;
   margin-bottom: 5px;
 }
 
 .card-value {
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
   margin-bottom: 10px;
 }
 
@@ -57,7 +57,8 @@
 }
 
 .card-field {
-  border-left: 3px  solid #ffffff;
+  border-left: 3px solid;
+  border-image: linear-gradient(to bottom, #fff 0%, #fff 75%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%) 1 100%;
   padding-left: 2px;
 }
 
@@ -74,12 +75,18 @@
 }
 
 .card-field-label {
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .card-field-value {
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 14px;
   color: #fff;
   word-break: break-word;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
