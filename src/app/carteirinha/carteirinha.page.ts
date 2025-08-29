@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, Platform } from '@ionic/angular';
 import { AppSettings } from 'src/core/appSettings';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 //import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
@@ -19,6 +20,8 @@ export class CarteirinhaPage implements OnInit {
   constructor(
     public navParams: NavParams,
     private modalController: ModalController,
+    private platform: Platform,
+    private socialSharing: SocialSharing
     //private screenOrientation: ScreenOrientation
   ) {
 
@@ -48,24 +51,38 @@ export class CarteirinhaPage implements OnInit {
   }
 
   compartilhar(): void {
+    const message = this.carteirinha.nome + ', segue o link da sua carteirinha da AMBEP!';
+    const subject = 'Compartilhar carteirinha do: ' + this.carteirinha.nome;
+    const url = AppSettings.img.linkShare + 'carteirinha/' + this.carteirinha.guid;
 
-    try {
 
-      if (navigator.share !== undefined) {
-        navigator.share({
-          title: 'Compartilhar carteirinha do: ' + this.carteirinha.nome,
-          text: this.carteirinha.nome + ', segue o link da sua carteirinha da AMBEP!',
-          url: AppSettings.img.linkShare + 'carteirinha/' + this.carteirinha.guid,
-        })
-          .then(() => console.log('Successful share'))
-          .catch((error) => console.log('Error sharing', error));
-      }
-      else {
-        this.share = true;
-      }
+    if (navigator.share !== undefined && !this.platform.is('android')) {
+      navigator.share({
+        title: subject,
+        text: message,
+        url: url,
+      })
+        .then(() => console.log('Successful share via Web Share API'))
+        .catch((error) => {
+          console.log('Error sharing via Web Share API', error);
+          this.fallbackShare(message, subject, url);
+        });
+    } else {
 
-    } catch (ex) {
-      this.share = true;
+      this.fallbackShare(message, subject, url);
     }
+  }
+
+  private fallbackShare(message: string, subject: string, url: string): void {
+
+    this.socialSharing.share(message, subject, null, url)
+      .then(() => {
+        console.log('Successful share via SocialSharing plugin');
+      })
+      .catch((error) => {
+        console.log('Error sharing via SocialSharing plugin', error);
+
+        this.share = true;
+      });
   }
 }
