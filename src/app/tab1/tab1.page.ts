@@ -50,7 +50,6 @@ export class Tab1Page {
   }
 
   openPage(page): void {
-
     setTimeout(() => {
       if (page.guid !== null && page.guid !== undefined) {
         this.controleAcessoProvider.navegacaoGravar(page.guid).then((result: any) => {
@@ -59,10 +58,10 @@ export class Tab1Page {
       }
     }, 100);
 
-    if (page.componente === 'WebViewPdfPage') {
-      this.download(page.param);
-      return;
-    }
+    // if (page.componente === 'WebViewPdfPage') {
+    //   this.download(page.param);
+    //   return;
+    // }
 
     this.router.navigate([page.route], {
       queryParams: page,

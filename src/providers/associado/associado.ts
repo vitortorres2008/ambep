@@ -5,20 +5,13 @@ import { ApiProvider } from '../api/api';
 export class AssociadoProvider {
   constructor(
     private api: ApiProvider
-  ) {
-    console.log('Hello AssociadoProvider');
-  }
+  ) {}
 
-  public guidsCarteirinhas ()  {
-
+  public guidsCarteirinhas()  {
     return this.api.get('/AssociadoLotacao/App/Carteirinhas/Guid');
-
   }
 
-  public carteirinhas ()  {
-
+  public carteirinhas()  {
     return this.api.get('/AssociadoLotacao/App/Carteirinhas');
-
   }
-
 }

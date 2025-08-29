@@ -5,9 +5,7 @@ import { ApiProvider } from '../api/api';
 export class UsuarioProvider {
   constructor(
     private api: ApiProvider
-  ) {
-    console.log('Hello UsuarioProvider');
-  }
+  ) {}
 
   public cadastrar(model: any) {
     return this.api.put('/AppUsuario/Cadastrar', model);

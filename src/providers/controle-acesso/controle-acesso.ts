@@ -3,26 +3,24 @@ import { ApiProvider } from '../api/api';
 
 @Injectable()
 export class ControleAcessoProvider {
-  constructor(
-    private api: ApiProvider
-  ) {
-    console.log('Hello AppControleAcessoProvider');
-  }
+  constructor(private api: ApiProvider) {}
 
-  public menus ()  {
+  public menus() {
     return this.api.get('/AppControleAcesso/Menus');
   }
 
-  public menusTelaInicial ()  {
+  public menusTelaInicial() {
     return this.api.get('/AppControleAcesso/Menus/TelaInicial');
   }
 
-  public exibeMenuCarteirinha ()  {
+  public exibeMenuCarteirinha() {
     return this.api.get('/AppControleAcesso/ExibeMenuCarteirinha');
   }
 
   public navegacaoGravar(_guid: any) {
-    return this.api.post('/AppControleAcesso/Navegacao/Gravar', {guid: _guid});
+    return this.api.post('/AppControleAcesso/Navegacao/Gravar', {
+      guid: _guid,
+    });
   }
 
   public alterarSenha(model: any) {
