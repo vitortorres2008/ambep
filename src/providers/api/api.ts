@@ -1,25 +1,32 @@
-import { Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../../core/appSettings';
-import { DefaultRequestOptions } from '../../core/defaultRequestOptions';
 import { Observable } from 'rxjs';
-import 'rxjs/Rx';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ApiProvider {
 
   constructor(
-    public http: Http) {
+    public http: HttpClient) {
     console.log('Hello ApiProvider Provider');
+  }
+
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('ambepToken')
+    });
   }
 
   get(Rota) {
     return new Promise((resolve, reject) => {
       let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
-      
-      this.http.get(url, new DefaultRequestOptions())
+
+      this.http.get(url, { headers: this.getHeaders() })
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           console.log('erro: '+  JSON.stringify(error));
@@ -30,44 +37,34 @@ export class ApiProvider {
 
 
   get2(Rota): Observable<any> {
-    
     let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
 
-    let retorno = new Observable<any>(obs => {
+    return this.http.get(url, { headers: this.getHeaders() })
+      .pipe(
+        map((response: any) => response),
+        catchError((error) => {
+          console.log('erro: '+  JSON.stringify(error));
 
-      this.http.get(url, new DefaultRequestOptions())
-      .map(res => res.json())
-                .subscribe(rss => {
-                  obs.next(rss);
-                }, error =>{
+          let erro: any = { code: '', action: 'MSG', message: '', page: '', root: false};
 
-                  //obs.error('Usuário ou senha inválidos!');
+          switch(error.status)
+          {
+            case 401:
+              erro = {code: '', action: 'OPEN_PAGE', message: 'Autorização negada', page: 'LoginPage', root: true};
+            break;
 
-                  console.log('erro: '+  JSON.stringify(error));
+            case 404:
+              erro = {code: '', action: 'MSG', message: 'Rota não encontrada.', page: ''};
+            break;
 
-                let erro: any = { code: '', action: 'MSG', message: '', page: '', root: false};
+            default:
+              erro = {code: '', action: 'MSG', message: 'Sem comunicação com o servidor', page: ''};
+            break;
+          }
 
-                switch(error.status)
-                {
-                  case 401:
-                    erro = {code: '', action: 'OPEN_PAGE', message: 'Autorização negada', page: 'LoginPage', root: true};
-                  break;
-
-                  case 404:
-                    erro = {code: '', action: 'MSG', message: 'Rota não encontrada.', page: ''};
-                  break;
-
-                  default:
-                    erro = {code: '', action: 'MSG', message: 'Sem comunicação com o servidor', page: ''};
-                  break;
-                }
-
-                obs.error(erro);
-
-              } );
-        
-    });
-    return retorno;
+          return throwError(erro);
+        })
+      );
   }
 
   post(Rota: string, Model: any) {
@@ -77,10 +74,10 @@ export class ApiProvider {
   postRequestOption(Rota:string, Model:any, PassRequestOption: boolean) {
     return new Promise((resolve, reject) => {
       let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
-      
-      this.http.post(url, Model, new DefaultRequestOptions())
+
+      this.http.post(url, Model, { headers: this.getHeaders() })
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           console.log('erro: '+  JSON.stringify(error));
@@ -93,10 +90,10 @@ export class ApiProvider {
   put(Rota, Model) {
     return new Promise((resolve, reject) => {
       let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
-      
-      this.http.put(url, Model, new DefaultRequestOptions())
+
+      this.http.put(url, Model, { headers: this.getHeaders() })
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           console.log('erro: '+  JSON.stringify(error));
@@ -109,10 +106,10 @@ export class ApiProvider {
   delete(Rota) {
     return new Promise((resolve, reject) => {
       let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
-      
-      this.http.delete(url, new DefaultRequestOptions())
+
+      this.http.delete(url, { headers: this.getHeaders() })
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           console.log('erro: '+  JSON.stringify(error));
@@ -124,14 +121,17 @@ export class ApiProvider {
   postNotToken(Rota, Model) {
     return new Promise((resolve, reject) => {
       let url = AppSettings.serverApi.url + AppSettings.serverApi.versionBase + Rota;
-      
-      this.http.post(url, Model)
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+
+      this.http.post(url, Model, { headers: headers })
         .subscribe((result: any) => {
-          resolve(result.json());
+          resolve(result);
         },
         (error) => {
           console.log('erro: '+  JSON.stringify(error));
-          reject(error.json());
+          reject(error);
         });
     });
   }
@@ -153,16 +153,16 @@ export class ApiProvider {
         case 404:
           erro = {code: '404', action: 'MSG', titulo: 'Rota não encontrada', message: 'Não foi possível encontrar a rota para realizar a operação.', page: ''};
         break;
-        
+
         case 412:
           erro = {code: '412', action: 'MSG', titulo: 'Restrição do formulário', message: 'Campos de preenchimento obrigatórios', page: ''};
         break;
 
         //Mensagem enviada pela api.
         case 417:
-          erro = {code: '417', action: 'MSG', titulo: 'Mensagem de retorno', message: error._body, page: ''};
+          erro = {code: '417', action: 'MSG', titulo: 'Mensagem de retorno', message: error.error || error.message, page: ''};
         break;
-        
+
         case 502:
           erro = {code: '502', action: 'MSG', titulo: 'Sem comunicação', message: 'O servidor não respondeu a requisição.', page: ''};
         break;

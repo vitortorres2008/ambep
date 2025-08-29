@@ -1,12 +1,10 @@
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppSettings } from './../core/appSettings';
 import { Observable } from 'rxjs';
-import 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
 export class Util {
   constructor(
-    public http?: Http
+    public http?: HttpClient
   ) {
 
   }
@@ -44,7 +42,7 @@ export class Util {
     if(new String(Date.parse(p)) === 'NaN'){
       return false;
     }
-    
+
     return true;
   }
 

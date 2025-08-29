@@ -24,3 +24,5 @@ npm-debug.log*
 /.versions
 /.vscode
 /node_modules
+/platforms
+/plugins

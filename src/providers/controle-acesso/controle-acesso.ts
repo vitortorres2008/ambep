@@ -1,24 +1,22 @@
-import { Http} from '@angular/http';
 import { Injectable } from '@angular/core';
 import { ApiProvider } from '../api/api';
 
 @Injectable()
 export class ControleAcessoProvider {
   constructor(
-		public http: Http
-	, private api: ApiProvider
-) {
+    private api: ApiProvider
+  ) {
     console.log('Hello AppControleAcessoProvider');
   }
-   
+
   public menus ()  {
     return this.api.get('/AppControleAcesso/Menus');
   }
-  
+
   public menusTelaInicial ()  {
     return this.api.get('/AppControleAcesso/Menus/TelaInicial');
   }
-  
+
   public exibeMenuCarteirinha ()  {
     return this.api.get('/AppControleAcesso/ExibeMenuCarteirinha');
   }
